@@ -1,35 +1,69 @@
 import CustomContainer from "../components/customContainer";
 import {
+  useDeleteExerciseFromWorkoutMutation,
   useGetExercisesFromWorkoutQuery,
   usePatchWorkoutExerciseMutation,
 } from "../api/workout.ts";
 import { useNavigate, useParams } from "react-router-dom";
-import { Spinner } from "@chakra-ui/react";
+import { Spinner, useToast } from "@chakra-ui/react";
 import ErrorAlert from "../components/alert/error";
 import StopwatchCard from "../components/card/stopwatchCard";
 import ExerciseCard from "../components/card/exerciseCard";
 import { isNumber } from "../utils/stringUtils.ts";
+import { useState } from "react";
+import ExerciseModal from "../components/modal/exerciseModal";
 
 const WorkoutPage = () => {
+  const [modalStates, setModalStates] = useState<boolean[]>([]);
+
   type WorkoutIdParam = {
     workoutId: string;
   };
 
+  const toast = useToast();
   const { workoutId } = useParams<keyof WorkoutIdParam>() as WorkoutIdParam;
+
   const {
     isLoading: getExercisesFromWorkoutIsLoading,
     isSuccess: getExercisesFromWorkoutIsSuccess,
     isError: getExercisesFromWorkoutIsError,
     error: getExercisesFromWorkoutError,
     data: getExercisesFromWorkoutData,
-  } = useGetExercisesFromWorkoutQuery(workoutId);
-  const {
-    mutate: patchWorkoutExerciseMutate,
-    isLoading: patchWorkoutExerciseIsLoading,
-    isSuccess: patchWorkoutExerciseIsSuccess,
-    isError: patchWorkoutExerciseIsError,
-    error: patchWorkoutExerciseError,
-  } = usePatchWorkoutExerciseMutation();
+  } = useGetExercisesFromWorkoutQuery(workoutId, (error) => {
+    showToast(
+      "error",
+      "Erro ao tentar buscar exercícios",
+      error?.response ? error?.response.data.message : error?.message,
+    );
+  });
+
+  const { mutate: patchWorkoutExerciseMutate } =
+    usePatchWorkoutExerciseMutation(
+      () => {
+        showToast("success", "Exercício atualizado com sucesso");
+      },
+      (error) => {
+        showToast(
+          "error",
+          "Erro ao tentar atualizar exercício",
+          error?.response ? error?.response.data.message : error?.message,
+        );
+      },
+    );
+
+  const { mutate: deleteWorkoutExerciseMutate } =
+    useDeleteExerciseFromWorkoutMutation(
+      () => {
+        showToast("success", "Exercício removido com sucesso");
+      },
+      (error) => {
+        showToast(
+          "error",
+          "Erro ao tentar remover exercício",
+          error?.response ? error?.response.data.message : error?.message,
+        );
+      },
+    );
 
   const navigate = useNavigate();
 
@@ -40,11 +74,47 @@ const WorkoutPage = () => {
   ) => {
     if (!isNumber(newLoad)) return;
     if (oldLoad == Number(newLoad)) return;
-    console.log("AQUI");
+
     patchWorkoutExerciseMutate({
       workoutId,
       exerciseId,
       load: Number(newLoad),
+    });
+  };
+
+  const openModal = (index: number) => {
+    const newModalStates = [...modalStates];
+    newModalStates[index] = true;
+    setModalStates(newModalStates);
+  };
+
+  const closeModal = (index: number) => {
+    const newModalStates = [...modalStates];
+    newModalStates[index] = false;
+    setModalStates(newModalStates);
+  };
+
+  const deleteWorkout = (
+    workoutId: string,
+    exerciseId: string,
+    modelIndex: number,
+  ) => {
+    deleteWorkoutExerciseMutate({ workoutId, exerciseId });
+    closeModal(modelIndex);
+  };
+
+  const showToast = (
+    status: "info" | "warning" | "success" | "error" | "loading" | undefined,
+    title?: string,
+    description?: string,
+  ) => {
+    toast({
+      title: title,
+      description: description,
+      status: status,
+      duration: 1500,
+      isClosable: true,
+      position: "top",
     });
   };
 
@@ -73,19 +143,29 @@ const WorkoutPage = () => {
                 ? a.exercise.name.localeCompare(b.exercise.name)
                 : bodyPartComparison;
             })
-            .map((workoutExercise) => (
-              <ExerciseCard
-                exerciseName={workoutExercise.exercise.name}
-                exerciseLoad={workoutExercise.load}
-                exerciseBodyPart={workoutExercise.exercise.bodyPart}
-                onBlur={(e) => {
-                  patchExerciseLoad(
-                    workoutExercise.exercise.id,
-                    workoutExercise.load,
-                    e.target.value,
-                  );
-                }}
-              />
+            .map((workoutExercise, index) => (
+              <>
+                <ExerciseCard
+                  exerciseName={workoutExercise.exercise.name}
+                  exerciseLoad={workoutExercise.load}
+                  exerciseBodyPart={workoutExercise.exercise.bodyPart}
+                  onBlur={(e) => {
+                    patchExerciseLoad(
+                      workoutExercise.exercise.id,
+                      workoutExercise.load,
+                      e.target.value,
+                    );
+                  }}
+                  onClickOption={() => openModal(index)}
+                />
+                <ExerciseModal
+                  isOpen={modalStates[index] || false}
+                  onClose={() => closeModal(index)}
+                  onClickDelete={() =>
+                    deleteWorkout(workoutId, workoutExercise.exercise.id, index)
+                  }
+                />
+              </>
             ))
         )}
 
@@ -94,5 +174,4 @@ const WorkoutPage = () => {
     </CustomContainer>
   );
 };
-
 export default WorkoutPage;
