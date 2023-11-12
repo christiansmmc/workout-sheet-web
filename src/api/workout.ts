@@ -39,7 +39,10 @@ export const getExercisesFromWorkoutQuery = async (
   return data;
 };
 
-export const useGetExercisesFromWorkoutQuery = (workoutId: string) => {
+export const useGetExercisesFromWorkoutQuery = (
+  workoutId: string,
+  errorToastCallback?: (error: AxiosError<RequestError>) => void,
+) => {
   const { isLoading, isSuccess, isError, error, data } = useQuery<
     GetWorkoutExercisesResponse,
     AxiosError<RequestError>
@@ -47,6 +50,9 @@ export const useGetExercisesFromWorkoutQuery = (workoutId: string) => {
     queryKey: ["GetWorkoutExercises"],
     enabled: workoutId != "",
     queryFn: () => getExercisesFromWorkoutQuery(workoutId),
+    onError: (error) => {
+      if (errorToastCallback) errorToastCallback(error);
+    },
   });
 
   return {
@@ -125,10 +131,13 @@ export const patchExerciseLoad = (
   return api.patch(`/workouts/${workoutId}/exercises/${exerciseId}`, { load });
 };
 
-export const usePatchWorkoutExerciseMutation = () => {
+export const usePatchWorkoutExerciseMutation = (
+  successToastCallback?: () => void,
+  errorToastCallback?: (error: AxiosError<RequestError>) => void,
+) => {
   const queryClient = useQueryClient();
 
-  const { mutate, isLoading, isSuccess, isError, error } = useMutation<
+  const { mutate } = useMutation<
     AxiosResponse,
     AxiosError<RequestError>,
     { workoutId: string; exerciseId: string; load: number },
@@ -138,14 +147,49 @@ export const usePatchWorkoutExerciseMutation = () => {
       patchExerciseLoad(workoutId, exerciseId, load),
     onSuccess: () => {
       queryClient.invalidateQueries("GetWorkoutExercises");
+      if (successToastCallback) successToastCallback();
+    },
+    onError: (err) => {
+      if (errorToastCallback) errorToastCallback(err);
     },
   });
 
   return {
     mutate,
-    isLoading,
-    isSuccess,
-    isError,
-    error,
+  };
+};
+
+export const deleteExerciseFromWorkout = (
+  workoutId: string,
+  exerciseId: string,
+): Promise<AxiosResponse> => {
+  return api.delete<void>(`/workouts/${workoutId}/exercises/${exerciseId}`);
+};
+
+export const useDeleteExerciseFromWorkoutMutation = (
+  successToastCallback?: () => void,
+  errorToastCallback?: (error: AxiosError<RequestError>) => void,
+) => {
+  const queryClient = useQueryClient();
+
+  const { mutate } = useMutation<
+    AxiosResponse,
+    AxiosError<RequestError>,
+    { workoutId: string; exerciseId: string },
+    unknown
+  >({
+    mutationFn: ({ workoutId, exerciseId }) =>
+      deleteExerciseFromWorkout(workoutId, exerciseId),
+    onSuccess: () => {
+      queryClient.invalidateQueries("GetWorkoutExercises");
+      if (successToastCallback) successToastCallback();
+    },
+    onError: (err) => {
+      if (errorToastCallback) errorToastCallback(err);
+    },
+  });
+
+  return {
+    mutate,
   };
 };

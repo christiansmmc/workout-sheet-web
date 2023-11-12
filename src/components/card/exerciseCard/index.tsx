@@ -5,6 +5,7 @@ import {
   ExercisesCardText,
   InputContainer,
   OptionIcon,
+  OptionIconContainer,
 } from "./styles.tsx";
 import React from "react";
 
@@ -13,6 +14,7 @@ interface ExerciseCardProps {
   exerciseLoad: number;
   exerciseBodyPart: string;
   onBlur: (event: React.ChangeEvent<HTMLInputElement>) => void;
+  onClickOption: () => void;
 }
 
 const ExerciseCard = ({
@@ -20,6 +22,7 @@ const ExerciseCard = ({
   exerciseLoad,
   exerciseBodyPart,
   onBlur,
+  onClickOption,
 }: ExerciseCardProps) => {
   return (
     <ExerciseCardContainer>
@@ -36,7 +39,9 @@ const ExerciseCard = ({
       <ExercisesCardTag $tagName={exerciseBodyPart}>
         {exerciseBodyPart}
       </ExercisesCardTag>
-      <OptionIcon />
+      <OptionIconContainer onClick={onClickOption}>
+        <OptionIcon />
+      </OptionIconContainer>
     </ExerciseCardContainer>
   );
 };
