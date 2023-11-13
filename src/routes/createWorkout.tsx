@@ -128,7 +128,13 @@ const CreateWorkout = () => {
           exerciseName: string,
           exerciseBodyPart: string,
         ) => addExercise(exerciseId, exerciseName, exerciseBodyPart)}
-        exerciseList={data ?? []}
+        exerciseList={
+          data
+            ? data.filter(
+                (it) => !exercises.map((value) => value.id).includes(it.id),
+              )
+            : []
+        }
       />
 
       <CustomContainer>
