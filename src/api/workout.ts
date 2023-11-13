@@ -50,7 +50,7 @@ export const useGetExercisesFromWorkoutQuery = (
   workoutId: string,
   errorToastCallback?: (error: AxiosError<RequestError>) => void,
 ) => {
-  const { isLoading, isSuccess, isError, error, data } = useQuery<
+  const { isLoading, isSuccess, isError, isFetching, error, data } = useQuery<
     GetWorkoutExercisesResponse,
     AxiosError<RequestError>
   >({
@@ -66,6 +66,7 @@ export const useGetExercisesFromWorkoutQuery = (
     isLoading,
     isSuccess,
     isError,
+    isFetching,
     error,
     data,
   };

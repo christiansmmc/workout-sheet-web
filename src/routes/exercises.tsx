@@ -33,6 +33,7 @@ const WorkoutPage = () => {
     isLoading: getExercisesFromWorkoutIsLoading,
     isSuccess: getExercisesFromWorkoutIsSuccess,
     isError: getExercisesFromWorkoutIsError,
+    isFetching: getExercisesFromWorkoutIsFetching,
     error: getExercisesFromWorkoutError,
     data: getExercisesFromWorkoutData,
   } = useGetExercisesFromWorkoutQuery(workoutId, (error) => {
@@ -125,7 +126,8 @@ const WorkoutPage = () => {
   return (
     <CustomContainer>
       <>
-        {getExercisesFromWorkoutIsLoading ? (
+        {getExercisesFromWorkoutIsLoading ||
+        getExercisesFromWorkoutIsFetching ? (
           <Spinner size="md" />
         ) : getExercisesFromWorkoutIsError ? (
           <ErrorAlert
