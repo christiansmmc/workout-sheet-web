@@ -1,4 +1,4 @@
-import CustomContainer from "../components/customContainer";
+import CustomContainer from "../components/containers/customContainer";
 import {
   useDeleteExerciseFromWorkoutMutation,
   useGetExercisesFromWorkoutQuery,
@@ -7,11 +7,12 @@ import {
 import { useNavigate, useParams } from "react-router-dom";
 import { Spinner, useToast } from "@chakra-ui/react";
 import ErrorAlert from "../components/alert/error";
-import StopwatchCard from "../components/card/stopwatchCard";
+import StopwatchCard from "../components/containers/stopwatchContainer";
 import ExerciseCard from "../components/card/exerciseCard";
 import { isNumber } from "../utils/stringUtils.ts";
 import { useState } from "react";
 import ExerciseModal from "../components/modal/exerciseModal";
+import { isAuthenticated } from "../utils/authUtils.ts";
 
 const WorkoutPage = () => {
   const [modalStates, setModalStates] = useState<boolean[]>([]);
@@ -21,7 +22,12 @@ const WorkoutPage = () => {
   };
 
   const toast = useToast();
+  const navigate = useNavigate();
   const { workoutId } = useParams<keyof WorkoutIdParam>() as WorkoutIdParam;
+
+  if (!isAuthenticated()) {
+    navigate("/login");
+  }
 
   const {
     isLoading: getExercisesFromWorkoutIsLoading,
@@ -64,8 +70,6 @@ const WorkoutPage = () => {
         );
       },
     );
-
-  const navigate = useNavigate();
 
   const patchExerciseLoad = (
     exerciseId: string,
@@ -156,7 +160,8 @@ const WorkoutPage = () => {
                       e.target.value,
                     );
                   }}
-                  onClickOption={() => openModal(index)}
+                  onClickIcon={() => openModal(index)}
+                  iconType={"options"}
                 />
                 <ExerciseModal
                   isOpen={modalStates[index] || false}

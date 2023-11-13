@@ -5,7 +5,7 @@ import {
     LogoutIcon,
     StopwatchCardContainer,
     StopwatchCardText,
-} from "./styles";
+} from "./styles.tsx";
 
 interface StopwatchCardProps {
     useLogoutIcon?: boolean

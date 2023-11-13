@@ -10,6 +10,7 @@ import Login from "./routes/login.tsx";
 import RegisterPage from "./routes/register.tsx";
 import WorkoutPage from "./routes/workout.tsx";
 import Exercises from "./routes/exercises.tsx";
+import CreateWorkout from "./routes/createWorkout.tsx";
 
 export const theme = extendTheme({
   components: { Button: buttonTheme, Input: inputTheme },
@@ -69,6 +70,10 @@ const router = createBrowserRouter([
   {
     path: "/workout/:workoutId",
     element: <Exercises />,
+  },
+  {
+    path: "/create-workout",
+    element: <CreateWorkout />,
   },
 ]);
 
