@@ -1,7 +1,7 @@
 import styled from "styled-components";
 
-import {BsArrowLeft, BsPersonCircle} from "react-icons/Bs";
-import {SlLogout} from "react-icons/sl";
+import { BsArrowLeft, BsPersonCircle } from "react-icons/bs";
+import { SlLogout } from "react-icons/sl";
 
 export const StopwatchCardContainer = styled.div`
   margin: 0 auto;
@@ -32,16 +32,16 @@ export const BackIconContainer = styled.div`
   position: absolute;
   left: 24px;
   cursor: pointer;
-`
+`;
 
 export const BackIcon = styled(BsArrowLeft)`
   color: #5a5a5a;
   font-size: 24px;
   cursor: pointer;
-`
+`;
 
 export const LogoutIcon = styled(SlLogout)`
   color: #5a5a5a;
   font-size: 24px;
   cursor: pointer;
-`
+`;
