@@ -133,29 +133,20 @@ const CreateWorkout = () => {
 
       <CustomContainer>
         <>
-          {exercises
-            .sort((a, b) => {
-              const bodyPartComparison = a.bodyPart.localeCompare(b.bodyPart);
-
-              return bodyPartComparison === 0
-                ? a.name.localeCompare(b.name)
-                : bodyPartComparison;
-            })
-            .map((exercise, index) => {
-              return (
-                <>
-                  <ExerciseCard
-                    key={index}
-                    exerciseName={exercise.name}
-                    exerciseLoad={exercise.load}
-                    exerciseBodyPart={exercise.bodyPart}
-                    onBlur={(e) => updateLoad(index, e.target.value)}
-                    onClickIcon={() => removeExercise(index)}
-                    iconType={"remove"}
-                  />
-                </>
-              );
-            })}
+          {exercises.map((exercise, index) => {
+            return (
+              <>
+                <ExerciseCard
+                  key={index}
+                  exerciseName={exercise.name}
+                  exerciseLoad={exercise.load}
+                  exerciseBodyPart={exercise.bodyPart}
+                  onBlur={(e) => updateLoad(index, e.target.value)}
+                  onClickIcon={() => removeExercise(index)}
+                />
+              </>
+            );
+          })}
 
           <Button
             variant={"primaryActionButton"}

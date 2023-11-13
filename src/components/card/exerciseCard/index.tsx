@@ -4,7 +4,6 @@ import {
   ExercisesCardTag,
   ExercisesCardText,
   InputContainer,
-  OptionIcon,
   OptionIconContainer,
   TrashIcon,
 } from "./styles.tsx";
@@ -16,7 +15,6 @@ interface ExerciseCardProps {
   exerciseBodyPart: string;
   onBlur: (event: React.ChangeEvent<HTMLInputElement>) => void;
   onClickIcon: () => void;
-  iconType: "options" | "remove";
 }
 
 const ExerciseCard = ({
@@ -25,7 +23,6 @@ const ExerciseCard = ({
   exerciseBodyPart,
   onBlur,
   onClickIcon,
-  iconType,
 }: ExerciseCardProps) => {
   return (
     <ExerciseCardContainer>
@@ -43,7 +40,7 @@ const ExerciseCard = ({
         {exerciseBodyPart}
       </ExercisesCardTag>
       <OptionIconContainer onClick={onClickIcon}>
-        {iconType === "options" ? <OptionIcon /> : <TrashIcon />}
+        <TrashIcon />
       </OptionIconContainer>
     </ExerciseCardContainer>
   );

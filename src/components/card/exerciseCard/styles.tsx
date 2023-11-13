@@ -1,5 +1,6 @@
 import styled from "styled-components";
-import { BsThreeDots, BsTrash } from "react-icons/bs";
+import { BsThreeDots } from "react-icons/bs";
+import { PiTrashLight } from "react-icons/pi";
 
 export const ExerciseCardContainer = styled.div`
   position: relative;
@@ -55,7 +56,7 @@ export const ExercisesCardTag = styled.p<{ $tagName: string }>`
   font-size: 12px;
   border-radius: 2px;
   padding: 2px 8px;
-  width: 64px;
+  width: 72px;
   height: 24px;
   text-align: center;
   background-color: ${(props) =>
@@ -84,15 +85,15 @@ export const OptionIcon = styled(BsThreeDots)`
 
 export const InputContainer = styled.div`
   position: absolute;
-  right: 136px;
+  right: 142px;
 `;
 
-export const TrashIcon = styled(BsTrash)`
+export const TrashIcon = styled(PiTrashLight)`
   position: absolute;
   left: 0;
   right: 0;
   top: 0;
   bottom: 0;
   margin: auto;
-  font-size: 26px;
+  font-size: 24px;
 `;

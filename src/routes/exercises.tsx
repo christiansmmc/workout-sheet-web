@@ -163,7 +163,6 @@ const WorkoutPage = () => {
                     );
                   }}
                   onClickIcon={() => openModal(index)}
-                  iconType={"options"}
                 />
                 <ExerciseModal
                   isOpen={modalStates[index] || false}
