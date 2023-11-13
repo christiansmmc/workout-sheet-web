@@ -1,5 +1,5 @@
 import styled from "styled-components";
-import { BsThreeDots, BsTrash } from "react-icons/Bs";
+import { BsThreeDots, BsTrash } from "react-icons/bs";
 
 export const ExerciseCardContainer = styled.div`
   position: relative;

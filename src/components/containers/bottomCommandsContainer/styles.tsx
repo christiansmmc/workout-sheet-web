@@ -1,6 +1,6 @@
 import styled from "styled-components";
 
-import { BsArrowLeft } from "react-icons/Bs";
+import { BsArrowLeft } from "react-icons/bs";
 
 export const BottomCommandsContainerStyle = styled.div`
   margin: 0 auto;
