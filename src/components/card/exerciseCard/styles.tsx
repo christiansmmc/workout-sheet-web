@@ -5,7 +5,7 @@ import { PiTrashLight } from "react-icons/pi";
 export const ExerciseCardContainer = styled.div`
   position: relative;
   width: 100%;
-  height: 48px;
+  height: 56px;
   border: 1px solid #5a5a5a;
   background-color: #1e1e1e;
   border-radius: 2px;
@@ -16,7 +16,7 @@ export const ExerciseCardContainer = styled.div`
 
 export const ExercisesCardText = styled.p`
   font-size: 14px;
-  max-width: 40%;
+  max-width: 35%;
   padding-left: 8px;
 `;
 

@@ -12,6 +12,7 @@ import WorkoutCard from "../components/card/workoutCard";
 import CustomContainer from "../components/containers/customContainer";
 import WorkoutModal from "../components/modal/workoutModal";
 import { isAuthenticated, removeToken } from "../utils/authUtils.ts";
+import BottomContainer from "../components/containers/bottomContainer";
 
 const WorkoutPage = () => {
   const [modalStates, setModalStates] = useState<boolean[]>([]);
@@ -112,61 +113,64 @@ const WorkoutPage = () => {
   };
 
   return (
-    <CustomContainer>
-      <>
-        {isGetWorkoutsLoading ? (
-          <Spinner size="md" />
-        ) : isGetWorkoutsError ? (
-          <ErrorAlert
-            errorMessage={
-              getWorkoutsError?.response
-                ? getWorkoutsError?.response.data.message
-                : getWorkoutsError?.message
-            }
-          />
-        ) : (
-          isGetWorkoutsSuccess &&
-          getWorkoutsData
-            ?.sort((a, b) => (a.name < b.name ? -1 : a.name > b.name ? 1 : 0))
-            .map((workout, index) => {
-              return (
-                <>
-                  <WorkoutCard
-                    text={workout.name}
-                    key={workout.id}
-                    onClick={() => enterWorkout(workout.id)}
-                    onClickOption={() => openModal(index)}
-                  />
-                  <WorkoutModal
-                    key={index}
-                    placeholder={workout.name}
-                    isOpen={modalStates[index] || false}
-                    onClose={() => closeModal(index)}
-                    onInputChange={(e) => {
-                      setNewWorkoutName(e.target.value);
-                    }}
-                    onClickDelete={() => deleteWorkout(workout.id, index)}
-                    onClickPatch={() => {
-                      patchWorkout(workout.id, workout.name, index);
-                    }}
-                  />
-                </>
-              );
-            })
-        )}
-
-        <Button
-          variant={"primaryActionButton"}
-          width={"250px"}
-          _hover={{ backgroundColor: "#5A5A5A" }}
-          onClick={() => navigate("/create-workout")}
-        >
-          Adicionar treino
-        </Button>
-
-        <StopwatchCard useLogoutIcon={true} backOnClick={logout} />
-      </>
-    </CustomContainer>
+    <>
+      <CustomContainer>
+        <>
+          {isGetWorkoutsLoading ? (
+            <Spinner size="md" />
+          ) : isGetWorkoutsError ? (
+            <ErrorAlert
+              errorMessage={
+                getWorkoutsError?.response
+                  ? getWorkoutsError?.response.data.message
+                  : getWorkoutsError?.message
+              }
+            />
+          ) : (
+            isGetWorkoutsSuccess &&
+            getWorkoutsData
+              ?.sort((a, b) => (a.name < b.name ? -1 : a.name > b.name ? 1 : 0))
+              .map((workout, index) => {
+                return (
+                  <>
+                    <WorkoutCard
+                      text={workout.name}
+                      key={workout.id}
+                      onClick={() => enterWorkout(workout.id)}
+                      onClickOption={() => openModal(index)}
+                    />
+                    <WorkoutModal
+                      key={index}
+                      placeholder={workout.name}
+                      isOpen={modalStates[index] || false}
+                      onClose={() => closeModal(index)}
+                      onInputChange={(e) => {
+                        setNewWorkoutName(e.target.value);
+                      }}
+                      onClickDelete={() => deleteWorkout(workout.id, index)}
+                      onClickPatch={() => {
+                        patchWorkout(workout.id, workout.name, index);
+                      }}
+                    />
+                  </>
+                );
+              })
+          )}
+          <StopwatchCard useLogoutIcon={true} backOnClick={logout} />
+          <BottomContainer>
+            <Button
+              style={{ marginBottom: "15px" }}
+              variant={"primaryActionButton"}
+              width={"250px"}
+              _hover={{ backgroundColor: "#5A5A5A" }}
+              onClick={() => navigate("/create-workout")}
+            >
+              Adicionar treino
+            </Button>
+          </BottomContainer>
+        </>
+      </CustomContainer>
+    </>
   );
 };
 

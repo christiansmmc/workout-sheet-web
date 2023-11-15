@@ -8,6 +8,7 @@ import {
   TrashIcon,
 } from "./styles.tsx";
 import React from "react";
+import { capitalize } from "../../../utils/stringUtils.ts";
 
 interface ExerciseCardProps {
   exerciseName: string;
@@ -26,11 +27,12 @@ const ExerciseCard = ({
 }: ExerciseCardProps) => {
   return (
     <ExerciseCardContainer>
-      <ExercisesCardText>{exerciseName}</ExercisesCardText>
+      <ExercisesCardText>{capitalize(exerciseName)}</ExercisesCardText>
       <InputContainer>
         <Input
+          height={"36px"}
           variant={"loadInput"}
-          size={"md"}
+          size={"xs"}
           defaultValue={exerciseLoad}
           onBlur={onBlur}
           type={"number"}
