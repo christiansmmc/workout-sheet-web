@@ -1,23 +1,20 @@
-import { useState } from "react";
+import RegisterPageContainer from "../components/registerPage/mainContainer";
 import { useNavigate } from "react-router-dom";
-import PrimaryActionButton from "../components/button/prymaryActionButton/primaryActionButton";
-import CustomContainer from "../components/containers/customContainer";
-import PasswordInput from "../components/input/passwordInput/PasswordInput";
-import PrimaryInput from "../components/input/primaryInput/PrimaryInput";
-import { useRegisterMutation } from "../api/user.ts";
 import { isAuthenticated } from "../utils/authUtils.ts";
-import { Spinner } from "@chakra-ui/react";
-import ErrorAlert from "../components/alert/error";
-import BottomCommandsContainer from "../components/containers/bottomCommandsContainer";
+import FormContainer from "../components/registerPage/formContainer";
+import BannerContainer from "../components/containers/bannerContainer";
+import { useState } from "react";
+import { useRegisterMutation } from "../api/user.ts";
 
-export default function RegisterPage() {
-  const { mutate, isLoading, isError, error } = useRegisterMutation();
-  const [name, setName] = useState("");
-  const [height, setHeight] = useState("");
-  const [weight, setWeight] = useState("");
-  const [email, setEmail] = useState("");
-  const [password, setPassword] = useState("");
-  const [passwordConfirmation, setPasswordConfirmation] = useState("");
+const Register = () => {
+  const [name, setName] = useState<string>("");
+  const [height, setHeight] = useState<number>(0);
+  const [weight, setWeight] = useState<number>(0);
+  const [email, setEmail] = useState<string>("");
+  const [password, setPassword] = useState<string>("");
+  const [passwordConfirmation, setPasswordConfirmation] = useState<string>("");
+
+  const { mutate, isLoading } = useRegisterMutation(); // TODO ADD ON ERROR
 
   const navigate = useNavigate();
 
@@ -26,73 +23,36 @@ export default function RegisterPage() {
   }
 
   const register = () => {
-    // TODO validate fields and if password is the same
-    mutate({
-      email,
-      password,
-      client: {
-        name,
-        height: parseFloat(height),
-        weight: parseFloat(weight),
-      },
-    });
+    mutate({ email, password, client: { name, height, weight } });
   };
 
   return (
-    <CustomContainer>
+    <RegisterPageContainer>
       <>
-        <PrimaryInput
-          value={name}
-          onChange={(event) => setName(event.target.value)}
-          name="name"
-          placeholder="Nome"
+        <BannerContainer
+          primaryText={"Crie sua conta"}
+          secondaryText={"COmece hoje a acompanhar seu treino mais de perto"}
+          type={"REGISTER"}
         />
-        <PrimaryInput
-          value={height}
-          onChange={(event) => setHeight(event.target.value)}
-          name="height"
-          placeholder="Altura"
+        <FormContainer
+          name={name}
+          setName={setName}
+          height={height}
+          setHeight={setHeight}
+          weight={weight}
+          setWeight={setWeight}
+          email={email}
+          setEmail={setEmail}
+          password={password}
+          setPassword={setPassword}
+          passwordConfirmation={passwordConfirmation}
+          setPasswordConfirmation={setPasswordConfirmation}
+          register={register}
+          isLoading={isLoading}
         />
-        <PrimaryInput
-          value={weight}
-          onChange={(event) => setWeight(event.target.value)}
-          name="weight"
-          placeholder="Peso"
-        />
-        <PrimaryInput
-          value={email}
-          onChange={(event) => setEmail(event.target.value)}
-          name="email"
-          placeholder="Email"
-        />
-        <PasswordInput
-          value={password}
-          onChange={(event) => setPassword(event.target.value)}
-          name="password"
-          placeholder="Senha"
-        />
-        <PasswordInput
-          value={passwordConfirmation}
-          onChange={(event) => setPasswordConfirmation(event.target.value)}
-          name="passwordConfirmation"
-          placeholder="Confirme sua senha"
-        />
-
-        {isLoading ? (
-          <Spinner size="md" />
-        ) : (
-          <PrimaryActionButton text="Criar conta" onClick={register} />
-        )}
-
-        {isError && (
-          <ErrorAlert
-            errorMessage={
-              error?.response ? error.response.data.message : error?.message
-            }
-          />
-        )}
-        <BottomCommandsContainer onClick={() => navigate("/")} />
       </>
-    </CustomContainer>
+    </RegisterPageContainer>
   );
-}
+};
+
+export default Register;

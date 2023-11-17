@@ -1,20 +1,16 @@
-import { Spinner } from "@chakra-ui/react";
+import LoginPageContainer from "../components/loginPage/mainContainer";
+import LoginBannerContainer from "../components/loginPage/bannerContainer";
+import FormContainer from "../components/loginPage/formContainer";
 import { useState } from "react";
-import { useNavigate } from "react-router-dom";
 import { useLoginMutation } from "../api/user.ts";
-import ErrorAlert from "../components/alert/error";
-import PrimaryActionButton from "../components/button/prymaryActionButton/primaryActionButton";
-import CustomContainer from "../components/containers/customContainer";
-import PasswordInput from "../components/input/passwordInput/PasswordInput";
-import PrimaryInput from "../components/input/primaryInput/PrimaryInput";
+import { useNavigate } from "react-router-dom";
 import { isAuthenticated } from "../utils/authUtils.ts";
-import BottomCommandsContainer from "../components/containers/bottomCommandsContainer";
 
 const Login = () => {
   const [email, setEmail] = useState<string>("");
   const [password, setPassword] = useState<string>("");
 
-  const { mutate, isLoading, isError, error } = useLoginMutation();
+  const { mutate, isLoading } = useLoginMutation(); // TODO ADD ON ERROR
 
   const navigate = useNavigate();
 
@@ -28,37 +24,19 @@ const Login = () => {
   };
 
   return (
-    <CustomContainer>
+    <LoginPageContainer>
       <>
-        <PrimaryInput
-          value={email}
-          onChange={(event) => setEmail(event.target.value)}
-          name="email"
-          placeholder="Email"
+        <LoginBannerContainer />
+        <FormContainer
+          email={email}
+          setEmail={setEmail}
+          password={password}
+          setPassword={setPassword}
+          isLoading={isLoading}
+          login={login}
         />
-        <PasswordInput
-          value={password}
-          onChange={(event) => setPassword(event.target.value)}
-          name="password"
-          placeholder="Senha"
-        />
-
-        {isLoading ? (
-          <Spinner size="md" />
-        ) : (
-          <PrimaryActionButton text="Entrar" onClick={login} />
-        )}
-
-        {isError && (
-          <ErrorAlert
-            errorMessage={
-              error?.response ? error?.response.data.message : error?.message
-            }
-          />
-        )}
-        <BottomCommandsContainer onClick={() => navigate("/")} />
       </>
-    </CustomContainer>
+    </LoginPageContainer>
   );
 };
 

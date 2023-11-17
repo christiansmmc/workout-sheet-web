@@ -1,10 +1,12 @@
 import { useNavigate } from "react-router-dom";
-import PrimaryActionButton from "../components/button/prymaryActionButton/primaryActionButton";
-import CustomContainer from "../components/containers/customContainer";
 import { useEffect } from "react";
 import { isAuthenticated } from "../utils/authUtils.ts";
+import BannerContainer from "../components/mainPage/bannerContainer";
+import ButtonContainer from "../components/mainPage/buttonContainer";
+import MainPageContainer from "../components/mainPage/mainContainer";
+import PrimaryActionButtonNewUi from "../components/button/primaryActionButtonNewUi/primaryActionButton.tsx";
 
-const Login = () => {
+const Main = () => {
   const navigate = useNavigate();
 
   useEffect(() => {
@@ -13,22 +15,29 @@ const Login = () => {
     }
   }, []);
 
-  const toLoginRoute = async () => {
-    navigate("/login");
-  };
-
-  const toRegisterRoute = async () => {
-    navigate("/register");
-  };
-
   return (
-    <CustomContainer>
+    <MainPageContainer>
       <>
-        <PrimaryActionButton text="Entrar" onClick={toLoginRoute} />
-        <PrimaryActionButton text="Criar conta" onClick={toRegisterRoute} />
+        <BannerContainer />
+        <ButtonContainer>
+          <>
+            <PrimaryActionButtonNewUi
+              text="Entrar"
+              onClick={() => {
+                navigate("/login");
+              }}
+            />
+            <PrimaryActionButtonNewUi
+              text="Criar conta"
+              onClick={() => {
+                navigate("/register");
+              }}
+            />
+          </>
+        </ButtonContainer>
       </>
-    </CustomContainer>
+    </MainPageContainer>
   );
 };
 
-export default Login;
+export default Main;
