@@ -1,47 +1,35 @@
 import styled from "styled-components";
 
-import { BsArrowLeft, BsPersonCircle } from "react-icons/bs";
+import { BsArrowLeft } from "react-icons/bs";
 import { SlLogout } from "react-icons/sl";
 
-export const StopwatchCardContainer = styled.div`
+export const HeaderContainerStyle = styled.div`
   margin: 0 auto;
   width: 100%;
-  height: 48px;
+  height: 56px;
   position: absolute;
-  bottom: 0;
-  border-top: 1px solid #5a5a5a;
-  background-color: #191919;
+  top: 0;
+  border-top: 1px solid #323232;
+  background-color: #323232;
   display: flex;
   align-items: center;
   justify-content: center;
 `;
 
-export const StopwatchCardText = styled.p`
-  font-size: 15px;
-`;
-
-export const AccountIcon = styled(BsPersonCircle)`
-  color: #5a5a5a;
-  font-size: 28px;
-  position: absolute;
-  right: 28px;
-  cursor: pointer;
-`;
-
-export const BackIconContainer = styled.div`
+export const BackIconContainerStyle = styled.div`
   position: absolute;
   left: 24px;
   cursor: pointer;
 `;
 
-export const BackIcon = styled(BsArrowLeft)`
-  color: #5a5a5a;
+export const BackIconStyle = styled(BsArrowLeft)`
+  color: white;
   font-size: 24px;
   cursor: pointer;
 `;
 
-export const LogoutIcon = styled(SlLogout)`
-  color: #5a5a5a;
+export const LogoutIconStyle = styled(SlLogout)`
+  color: white;
   font-size: 24px;
   cursor: pointer;
 `;

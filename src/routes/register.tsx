@@ -31,7 +31,7 @@ const Register = () => {
       <>
         <BannerContainer
           primaryText={"Crie sua conta"}
-          secondaryText={"COmece hoje a acompanhar seu treino mais de perto"}
+          secondaryText={"Comece hoje a acompanhar seu treino mais de perto"}
           type={"REGISTER"}
         />
         <FormContainer

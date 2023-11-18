@@ -5,12 +5,12 @@ import { buttonTheme } from "./components/button/buttonTheme/buttonTheme.tsx";
 import { inputTheme } from "./components/input/inputTheme/inputTheme.tsx";
 import { QueryClient, QueryClientProvider } from "react-query";
 import { createBrowserRouter, RouterProvider } from "react-router-dom";
-import WorkoutPage from "./routes/workout.tsx";
 import Exercises from "./routes/exercises.tsx";
 import CreateWorkout from "./routes/createWorkout.tsx";
 import Main from "./routes/main.tsx";
 import Register from "./routes/register.tsx";
 import Login from "./routes/login.tsx";
+import WorkoutPage2 from "./routes/workout2.tsx";
 
 export const theme = extendTheme({
   components: { Button: buttonTheme, Input: inputTheme },
@@ -64,7 +64,7 @@ const router = createBrowserRouter([
   },
   {
     path: "/workout",
-    element: <WorkoutPage />,
+    element: <WorkoutPage2 />,
   },
   {
     path: "/workout/:workoutId",

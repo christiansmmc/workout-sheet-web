@@ -7,7 +7,7 @@ import {
 import { useNavigate, useParams } from "react-router-dom";
 import { Spinner, useToast } from "@chakra-ui/react";
 import ErrorAlert from "../components/alert/error";
-import StopwatchCard from "../components/containers/stopwatchContainer";
+import HeaderContainer from "../components/containers/stopwatchContainer";
 import ExerciseCard from "../components/card/exerciseCard";
 import { isNumber } from "../utils/stringUtils.ts";
 import { useState } from "react";
@@ -175,7 +175,7 @@ const WorkoutPage = () => {
             ))
         )}
 
-        <StopwatchCard backOnClick={() => navigate("/workout")} />
+        <HeaderContainer backOnClick={() => navigate("/workout")} />
       </>
     </CustomContainer>
   );
