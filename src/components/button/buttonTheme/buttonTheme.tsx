@@ -11,6 +11,16 @@ const primaryActionButton = defineStyle({
   width: "100%",
 });
 
+const PrimaryActionButtonNewUi = defineStyle({
+  backgroundColor: "#d60e0e",
+  borderRadius: "10px",
+  textColor: "white",
+  marginTop: "12px",
+  fontSize: "14px",
+  width: "100%",
+  height: "48px",
+});
+
 export const buttonTheme = defineStyleConfig({
-  variants: { primaryActionButton },
+  variants: { primaryActionButton, PrimaryActionButtonNewUi },
 });

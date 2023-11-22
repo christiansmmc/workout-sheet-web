@@ -1,8 +1,8 @@
 import {
-  BackIcon,
-  BackIconContainer,
-  LogoutIcon,
-  StopwatchCardContainer,
+  BackIconStyle,
+  BackIconContainerStyle,
+  LogoutIconStyle,
+  HeaderContainerStyle,
 } from "./styles.tsx";
 
 interface StopwatchCardProps {
@@ -10,21 +10,19 @@ interface StopwatchCardProps {
   backOnClick?: () => void;
 }
 
-const StopwatchCard = ({
+const HeaderContainer = ({
   backOnClick,
   useLogoutIcon = false,
 }: StopwatchCardProps) => {
   return (
     <>
-      <StopwatchCardContainer>
-        <BackIconContainer onClick={backOnClick}>
-          {useLogoutIcon ? <LogoutIcon /> : <BackIcon />}
-        </BackIconContainer>
-        {/*<StopwatchCardText>Cronômetro</StopwatchCardText>*/}
-        {/*<AccountIcon />*/}
-      </StopwatchCardContainer>
+      <HeaderContainerStyle>
+        <BackIconContainerStyle onClick={backOnClick}>
+          {useLogoutIcon ? <LogoutIconStyle /> : <BackIconStyle />}
+        </BackIconContainerStyle>
+      </HeaderContainerStyle>
     </>
   );
 };
 
-export default StopwatchCard;
+export default HeaderContainer;

@@ -136,7 +136,6 @@ const CreateWorkout = () => {
             : []
         }
       />
-
       <CustomContainer>
         <>
           {exercises.map((exercise, index) => {
@@ -153,7 +152,6 @@ const CreateWorkout = () => {
               </>
             );
           })}
-
           <Button
             variant={"primaryActionButton"}
             width={"250px"}

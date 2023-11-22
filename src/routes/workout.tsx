@@ -6,13 +6,14 @@ import {
   useGetWorkoutsQuery,
   usePatchWorkoutMutation,
 } from "../api/workout.ts";
-import ErrorAlert from "../components/alert/error";
-import StopwatchCard from "../components/containers/stopwatchContainer";
-import WorkoutCard from "../components/card/workoutCard";
-import CustomContainer from "../components/containers/customContainer";
+import HeaderContainer from "../components/containers/stopwatchContainer";
 import WorkoutModal from "../components/modal/workoutModal";
 import { isAuthenticated, removeToken } from "../utils/authUtils.ts";
 import BottomContainer from "../components/containers/bottomContainer";
+import WorkoutCard from "../components/card/workoutCard";
+import CardContainer from "../components/containers/cardContainer";
+import Container from "../components/containers/pageContainer";
+import CenterContainer from "../components/containers/centerContainer";
 
 const WorkoutPage = () => {
   const [modalStates, setModalStates] = useState<boolean[]>([]);
@@ -28,8 +29,6 @@ const WorkoutPage = () => {
   const {
     isLoading: isGetWorkoutsLoading,
     isSuccess: isGetWorkoutsSuccess,
-    isError: isGetWorkoutsError,
-    error: getWorkoutsError,
     data: getWorkoutsData,
   } = useGetWorkoutsQuery();
 
@@ -113,64 +112,62 @@ const WorkoutPage = () => {
   };
 
   return (
-    <>
-      <CustomContainer>
-        <>
-          {isGetWorkoutsLoading ? (
-            <Spinner size="md" />
-          ) : isGetWorkoutsError ? (
-            <ErrorAlert
-              errorMessage={
-                getWorkoutsError?.response
-                  ? getWorkoutsError?.response.data.message
-                  : getWorkoutsError?.message
-              }
-            />
-          ) : (
-            isGetWorkoutsSuccess &&
-            getWorkoutsData
-              ?.sort((a, b) => (a.name < b.name ? -1 : a.name > b.name ? 1 : 0))
-              .map((workout, index) => {
-                return (
-                  <>
-                    <WorkoutCard
-                      text={workout.name}
-                      key={workout.id}
-                      onClick={() => enterWorkout(workout.id)}
-                      onClickOption={() => openModal(index)}
-                    />
-                    <WorkoutModal
-                      key={index}
-                      placeholder={workout.name}
-                      isOpen={modalStates[index] || false}
-                      onClose={() => closeModal(index)}
-                      onInputChange={(e) => {
-                        setNewWorkoutName(e.target.value);
-                      }}
-                      onClickDelete={() => deleteWorkout(workout.id, index)}
-                      onClickPatch={() => {
-                        patchWorkout(workout.id, workout.name, index);
-                      }}
-                    />
-                  </>
-                );
-              })
-          )}
-          <StopwatchCard useLogoutIcon={true} backOnClick={logout} />
-          <BottomContainer>
-            <Button
-              style={{ marginBottom: "15px" }}
-              variant={"primaryActionButton"}
-              width={"250px"}
-              _hover={{ backgroundColor: "#5A5A5A" }}
-              onClick={() => navigate("/create-workout")}
-            >
-              Adicionar treino
-            </Button>
-          </BottomContainer>
-        </>
-      </CustomContainer>
-    </>
+    <Container>
+      <>
+        <HeaderContainer useLogoutIcon={true} backOnClick={logout} />
+        <CenterContainer>
+          <CardContainer>
+            <>
+              {isGetWorkoutsLoading ? (
+                <Spinner size="md" />
+              ) : (
+                isGetWorkoutsSuccess &&
+                getWorkoutsData
+                  ?.sort((a, b) =>
+                    a.name < b.name ? -1 : a.name > b.name ? 1 : 0,
+                  )
+                  .map((workout, index) => {
+                    return (
+                      <>
+                        <WorkoutCard
+                          text={workout.name}
+                          key={workout.id}
+                          enterButtonOnClick={() => enterWorkout(workout.id)}
+                          editButtonOnClick={() => openModal(index)}
+                        />
+                        <WorkoutModal
+                          key={index}
+                          placeholder={workout.name}
+                          isOpen={modalStates[index] || false}
+                          onClose={() => closeModal(index)}
+                          onInputChange={(e) => {
+                            setNewWorkoutName(e.target.value);
+                          }}
+                          onClickDelete={() => deleteWorkout(workout.id, index)}
+                          onClickPatch={() =>
+                            patchWorkout(workout.id, workout.name, index)
+                          }
+                        />
+                      </>
+                    );
+                  })
+              )}
+            </>
+          </CardContainer>
+        </CenterContainer>
+        <BottomContainer>
+          <Button
+            style={{ marginBottom: "15px" }}
+            variant={"PrimaryActionButtonNewUi"}
+            width={"250px"}
+            _hover={{ backgroundColor: "#5A5A5A" }}
+            onClick={() => navigate("/create-workout")}
+          >
+            Adicionar treino
+          </Button>
+        </BottomContainer>
+      </>
+    </Container>
   );
 };
 

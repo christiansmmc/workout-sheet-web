@@ -34,7 +34,7 @@ const WorkoutModal = ({
     <>
       <Modal isCentered={true} isOpen={isOpen} onClose={onClose}>
         <ModalOverlay />
-        <ModalContent backgroundColor={"#1E1E1E"} color={"white"}>
+        <ModalContent backgroundColor={"#161616"} color={"white"}>
           <ModalHeader color={"white"}>Edite ou Delete seu treino</ModalHeader>
           <ModalCloseButton />
           <ModalBody pb={6}>
@@ -43,34 +43,33 @@ const WorkoutModal = ({
               <Input
                 onChange={onInputChange}
                 defaultValue={placeholder}
-                variant={"primaryInput"}
+                variant={"primaryInput2"}
               />
             </FormControl>
           </ModalBody>
           <ModalFooter>
             <Button
-              variant={"primaryActionButton"}
+              variant={"PrimaryActionButtonNewUi"}
               width={"100px"}
               mr={20}
-              _hover={{ backgroundColor: "red" }}
               onClick={onClickDelete}
             >
               Deletar
             </Button>
             <Button
-              variant={"primaryActionButton"}
+              variant={"PrimaryActionButtonNewUi"}
               width={"100px"}
               mr={3}
-              _hover={{ backgroundColor: "#2791e8" }}
+              backgroundColor={"#2791e8"}
               onClick={onClickPatch}
             >
               Salvar
             </Button>
             <Button
-              variant={"primaryActionButton"}
+              variant={"PrimaryActionButtonNewUi"}
               width={"100px"}
               mr={3}
-              _hover={{ backgroundColor: "#5A5A5A" }}
+              backgroundColor={"#5A5A5A"}
               onClick={onClose}
             >
               Cancelar
