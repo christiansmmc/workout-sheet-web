@@ -1,10 +1,10 @@
 import { BottomContainerStyle } from "./styles.tsx";
 
-interface CustomContainerProps {
+interface BottomContainerProps {
   children: JSX.Element;
 }
 
-const BottomContainer = ({ children }: CustomContainerProps) => {
+const BottomContainer = ({ children }: BottomContainerProps) => {
   return <BottomContainerStyle>{children}</BottomContainerStyle>;
 };
 

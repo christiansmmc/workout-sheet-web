@@ -34,6 +34,7 @@ export const theme = extendTheme({
       },
       "@media (min-width: 500px)": {
         "#root": {
+          height: "auto",
           border: "1px solid #5A5A5A",
         },
       },

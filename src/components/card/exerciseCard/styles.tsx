@@ -7,7 +7,7 @@ export const ExerciseCardContainer = styled.div`
   height: 64px;
   min-height: 64px;
   border: 1px solid #323232;
-  background-color: #161616;
+  background-color: #323232;
   border-radius: 10px;
   display: flex;
   align-items: center;

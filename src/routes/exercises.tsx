@@ -1,4 +1,3 @@
-import CustomContainer from "../components/containers/customContainer";
 import {
   useDeleteExerciseFromWorkoutMutation,
   useGetExercisesFromWorkoutQuery,
@@ -13,6 +12,7 @@ import { useState } from "react";
 import ExerciseModal from "../components/modal/exerciseModal";
 import { isAuthenticated } from "../utils/authUtils.ts";
 import CardContainer from "../components/containers/cardContainer";
+import CenterContainer from "../components/containers/centerContainer";
 
 const WorkoutPage = () => {
   const [modalStates, setModalStates] = useState<boolean[]>([]);
@@ -122,59 +122,60 @@ const WorkoutPage = () => {
   };
 
   return (
-    <CustomContainer>
-      <>
-        <CardContainer>
-          <>
-            {getExercisesFromWorkoutIsLoading ||
-            getExercisesFromWorkoutIsFetching ? (
-              <Spinner size="md" />
-            ) : (
-              getExercisesFromWorkoutIsSuccess &&
-              getExercisesFromWorkoutData?.workoutExercises
-                .sort((a, b) => {
-                  const bodyPartComparison = a.exercise.bodyPart.localeCompare(
-                    b.exercise.bodyPart,
-                  );
+    <>
+      <HeaderContainer backOnClick={() => navigate("/workout")} />
+      <CenterContainer>
+        <>
+          <CardContainer>
+            <>
+              {getExercisesFromWorkoutIsLoading ||
+              getExercisesFromWorkoutIsFetching ? (
+                <Spinner size="md" />
+              ) : (
+                getExercisesFromWorkoutIsSuccess &&
+                getExercisesFromWorkoutData?.workoutExercises
+                  .sort((a, b) => {
+                    const bodyPartComparison =
+                      a.exercise.bodyPart.localeCompare(b.exercise.bodyPart);
 
-                  return bodyPartComparison === 0
-                    ? a.exercise.name.localeCompare(b.exercise.name)
-                    : bodyPartComparison;
-                })
-                .map((workoutExercise, index) => (
-                  <>
-                    <ExerciseCard
-                      exerciseName={workoutExercise.exercise.name}
-                      exerciseLoad={workoutExercise.load}
-                      exerciseBodyPart={workoutExercise.exercise.bodyPart}
-                      onBlur={(e) => {
-                        patchExerciseLoad(
-                          workoutExercise.exercise.id,
-                          workoutExercise.load,
-                          e.target.value,
-                        );
-                      }}
-                      onClickIcon={() => openModal(index)}
-                    />
-                    <ExerciseModal
-                      isOpen={modalStates[index] || false}
-                      onClose={() => closeModal(index)}
-                      onClickDelete={() =>
-                        deleteWorkout(
-                          workoutId,
-                          workoutExercise.exercise.id,
-                          index,
-                        )
-                      }
-                    />
-                  </>
-                ))
-            )}
-          </>
-        </CardContainer>
-        <HeaderContainer backOnClick={() => navigate("/workout")} />
-      </>
-    </CustomContainer>
+                    return bodyPartComparison === 0
+                      ? a.exercise.name.localeCompare(b.exercise.name)
+                      : bodyPartComparison;
+                  })
+                  .map((workoutExercise, index) => (
+                    <>
+                      <ExerciseCard
+                        exerciseName={workoutExercise.exercise.name}
+                        exerciseLoad={workoutExercise.load}
+                        exerciseBodyPart={workoutExercise.exercise.bodyPart}
+                        onBlur={(e) => {
+                          patchExerciseLoad(
+                            workoutExercise.exercise.id,
+                            workoutExercise.load,
+                            e.target.value,
+                          );
+                        }}
+                        onClickIcon={() => openModal(index)}
+                      />
+                      <ExerciseModal
+                        isOpen={modalStates[index] || false}
+                        onClose={() => closeModal(index)}
+                        onClickDelete={() =>
+                          deleteWorkout(
+                            workoutId,
+                            workoutExercise.exercise.id,
+                            index,
+                          )
+                        }
+                      />
+                    </>
+                  ))
+              )}
+            </>
+          </CardContainer>
+        </>
+      </CenterContainer>
+    </>
   );
 };
 export default WorkoutPage;

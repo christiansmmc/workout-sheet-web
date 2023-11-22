@@ -37,7 +37,7 @@ const ExerciseCard = ({
           defaultValue={exerciseLoad}
           onBlur={onBlur}
           type={"number"}
-          backgroundColor={"#323232"}
+          backgroundColor={"#161616"}
         />
       </InputContainer>
       <ExercisesCardTagContainerStyle $tagName={exerciseBodyPart}>
