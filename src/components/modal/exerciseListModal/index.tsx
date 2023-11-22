@@ -9,7 +9,7 @@ import {
   ModalOverlay,
 } from "@chakra-ui/react";
 import { GetExerciseResponse } from "../../../interfaces/exercise.ts";
-import ListExerciseCard from "../../card/listExerciseCard";
+import ExerciseCard from "../../card/listExerciseCard";
 
 interface ExerciseListModalProps {
   isOpen: boolean;
@@ -55,7 +55,7 @@ const ExerciseListModal = ({
           <ModalBody pb={6}>
             {exerciseList.map((exercise, index) => {
               return (
-                <ListExerciseCard
+                <ExerciseCard
                   key={index}
                   exerciseName={exercise.name}
                   exerciseBodyPart={exercise.bodyPart}

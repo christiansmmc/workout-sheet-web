@@ -3,8 +3,8 @@ import { useEffect } from "react";
 import { isAuthenticated } from "../utils/authUtils.ts";
 import BannerContainer from "../components/mainPage/bannerContainer";
 import ButtonContainer from "../components/mainPage/buttonContainer";
-import MainPageContainer from "../components/mainPage/mainContainer";
 import PrimaryActionButtonNewUi from "../components/button/primaryActionButtonNewUi/primaryActionButton.tsx";
+import MainPageContainer from "../components/containers/mainPageContainer";
 
 const Main = () => {
   const navigate = useNavigate();

@@ -18,9 +18,9 @@ const primaryInput = definePartsStyle({
 const loadInput = definePartsStyle({
   field: {
     border: "1px solid",
-    borderColor: "#5A5A5A",
-    background: "#1E1E1E",
-    borderRadius: "2px",
+    borderColor: "#323232",
+    background: "#161616",
+    borderRadius: "10px",
     _placeholder: { color: "white" },
 
     fontSize: "14px",

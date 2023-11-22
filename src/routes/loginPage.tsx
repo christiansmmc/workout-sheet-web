@@ -1,12 +1,12 @@
-import LoginPageContainer from "../components/loginPage/mainContainer";
 import LoginBannerContainer from "../components/loginPage/bannerContainer";
 import FormContainer from "../components/loginPage/formContainer";
 import { useState } from "react";
 import { useLoginMutation } from "../api/user.ts";
 import { useNavigate } from "react-router-dom";
 import { isAuthenticated } from "../utils/authUtils.ts";
+import Container from "../components/containers/pageContainer";
 
-const Login = () => {
+const LoginPage = () => {
   const [email, setEmail] = useState<string>("");
   const [password, setPassword] = useState<string>("");
 
@@ -24,7 +24,7 @@ const Login = () => {
   };
 
   return (
-    <LoginPageContainer>
+    <Container>
       <>
         <LoginBannerContainer />
         <FormContainer
@@ -36,8 +36,8 @@ const Login = () => {
           login={login}
         />
       </>
-    </LoginPageContainer>
+    </Container>
   );
 };
 
-export default Login;
+export default LoginPage;

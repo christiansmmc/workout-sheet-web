@@ -1,12 +1,12 @@
-import RegisterPageContainer from "../components/registerPage/mainContainer";
 import { useNavigate } from "react-router-dom";
 import { isAuthenticated } from "../utils/authUtils.ts";
 import FormContainer from "../components/registerPage/formContainer";
 import BannerContainer from "../components/containers/bannerContainer";
 import { useState } from "react";
 import { useRegisterMutation } from "../api/user.ts";
+import Container from "../components/containers/pageContainer";
 
-const Register = () => {
+const RegisterPage = () => {
   const [name, setName] = useState<string>("");
   const [height, setHeight] = useState<number>(0);
   const [weight, setWeight] = useState<number>(0);
@@ -27,7 +27,7 @@ const Register = () => {
   };
 
   return (
-    <RegisterPageContainer>
+    <Container>
       <>
         <BannerContainer
           primaryText={"Crie sua conta"}
@@ -51,8 +51,8 @@ const Register = () => {
           isLoading={isLoading}
         />
       </>
-    </RegisterPageContainer>
+    </Container>
   );
 };
 
-export default Register;
+export default RegisterPage;

@@ -8,9 +8,9 @@ import { createBrowserRouter, RouterProvider } from "react-router-dom";
 import Exercises from "./routes/exercises.tsx";
 import CreateWorkout from "./routes/createWorkout.tsx";
 import Main from "./routes/main.tsx";
-import Register from "./routes/register.tsx";
-import Login from "./routes/login.tsx";
-import WorkoutPage2 from "./routes/workout2.tsx";
+import RegisterPage from "./routes/registerPage.tsx";
+import LoginPage from "./routes/loginPage.tsx";
+import WorkoutPage from "./routes/workout.tsx";
 
 export const theme = extendTheme({
   components: { Button: buttonTheme, Input: inputTheme },
@@ -56,15 +56,15 @@ const router = createBrowserRouter([
   },
   {
     path: "/login",
-    element: <Login />,
+    element: <LoginPage />,
   },
   {
     path: "/register",
-    element: <Register />,
+    element: <RegisterPage />,
   },
   {
     path: "/workout",
-    element: <WorkoutPage2 />,
+    element: <WorkoutPage />,
   },
   {
     path: "/workout/:workoutId",

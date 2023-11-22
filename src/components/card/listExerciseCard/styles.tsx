@@ -1,6 +1,6 @@
 import styled from "styled-components";
 
-export const ListExerciseCardContainer = styled.div`
+export const ExerciseCardContainer = styled.div`
   position: relative;
   width: 100%;
   height: 48px;
@@ -12,7 +12,7 @@ export const ListExerciseCardContainer = styled.div`
   margin-bottom: 8px;
 `;
 
-export const ListExerciseCardText = styled.p`
+export const ExerciseCardText = styled.p`
   max-width: 60%;
   padding-left: 8px;
   font-size: 16px;
@@ -48,7 +48,7 @@ const tagColors: TagColors = {
   },
 };
 
-export const ListExerciseCardTag = styled.p<{ $tagName: string }>`
+export const ExerciseCardTag = styled.p<{ $tagName: string }>`
   position: absolute;
   right: 40px;
   font-size: 16px;

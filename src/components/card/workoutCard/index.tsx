@@ -1,20 +1,36 @@
-import {OptionIcon, OptionIconContainer, WorkoutCardContainer, WorkoutCardText} from "./styles";
+import {
+  DumbbellIcon,
+  EditIcon,
+  EditIconContainer,
+  EnterIcon,
+  EnterIconContainer,
+  WorkoutCardStyle,
+  WorkoutCardText,
+} from "./styles";
 
 interface WorkoutCardProps {
-    text: string;
-    onClick: () => void;
-    onClickOption: () => void
+  text: string;
+  enterButtonOnClick: () => void;
+  editButtonOnClick: () => void;
 }
 
-const WorkoutCard = ({text, onClick, onClickOption}: WorkoutCardProps) => {
-    return (
-        <WorkoutCardContainer >
-            <WorkoutCardText onClick={onClick}>{text}</WorkoutCardText>
-            <OptionIconContainer onClick={onClickOption}>
-                <OptionIcon/>
-            </OptionIconContainer>
-        </WorkoutCardContainer>
-    );
+const WorkoutCard = ({
+  text,
+  enterButtonOnClick,
+  editButtonOnClick,
+}: WorkoutCardProps) => {
+  return (
+    <WorkoutCardStyle>
+      <DumbbellIcon />
+      <WorkoutCardText>{text}</WorkoutCardText>
+      <EditIconContainer onClick={editButtonOnClick}>
+        <EditIcon />
+      </EditIconContainer>
+      <EnterIconContainer onClick={enterButtonOnClick}>
+        <EnterIcon />
+      </EnterIconContainer>
+    </WorkoutCardStyle>
+  );
 };
 
 export default WorkoutCard;

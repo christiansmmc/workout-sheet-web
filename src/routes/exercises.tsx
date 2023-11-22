@@ -6,13 +6,13 @@ import {
 } from "../api/workout.ts";
 import { useNavigate, useParams } from "react-router-dom";
 import { Spinner, useToast } from "@chakra-ui/react";
-import ErrorAlert from "../components/alert/error";
 import HeaderContainer from "../components/containers/stopwatchContainer";
 import ExerciseCard from "../components/card/exerciseCard";
 import { isNumber } from "../utils/stringUtils.ts";
 import { useState } from "react";
 import ExerciseModal from "../components/modal/exerciseModal";
 import { isAuthenticated } from "../utils/authUtils.ts";
+import CardContainer from "../components/containers/cardContainer";
 
 const WorkoutPage = () => {
   const [modalStates, setModalStates] = useState<boolean[]>([]);
@@ -32,9 +32,7 @@ const WorkoutPage = () => {
   const {
     isLoading: getExercisesFromWorkoutIsLoading,
     isSuccess: getExercisesFromWorkoutIsSuccess,
-    isError: getExercisesFromWorkoutIsError,
     isFetching: getExercisesFromWorkoutIsFetching,
-    error: getExercisesFromWorkoutError,
     data: getExercisesFromWorkoutData,
   } = useGetExercisesFromWorkoutQuery(workoutId, (error) => {
     showToast(
@@ -126,55 +124,54 @@ const WorkoutPage = () => {
   return (
     <CustomContainer>
       <>
-        {getExercisesFromWorkoutIsLoading ||
-        getExercisesFromWorkoutIsFetching ? (
-          <Spinner size="md" />
-        ) : getExercisesFromWorkoutIsError ? (
-          <ErrorAlert
-            errorMessage={
-              getExercisesFromWorkoutError?.response
-                ? getExercisesFromWorkoutError?.response.data.message
-                : getExercisesFromWorkoutError?.message
-            }
-          />
-        ) : (
-          getExercisesFromWorkoutIsSuccess &&
-          getExercisesFromWorkoutData?.workoutExercises
-            .sort((a, b) => {
-              const bodyPartComparison = a.exercise.bodyPart.localeCompare(
-                b.exercise.bodyPart,
-              );
+        <CardContainer>
+          <>
+            {getExercisesFromWorkoutIsLoading ||
+            getExercisesFromWorkoutIsFetching ? (
+              <Spinner size="md" />
+            ) : (
+              getExercisesFromWorkoutIsSuccess &&
+              getExercisesFromWorkoutData?.workoutExercises
+                .sort((a, b) => {
+                  const bodyPartComparison = a.exercise.bodyPart.localeCompare(
+                    b.exercise.bodyPart,
+                  );
 
-              return bodyPartComparison === 0
-                ? a.exercise.name.localeCompare(b.exercise.name)
-                : bodyPartComparison;
-            })
-            .map((workoutExercise, index) => (
-              <>
-                <ExerciseCard
-                  exerciseName={workoutExercise.exercise.name}
-                  exerciseLoad={workoutExercise.load}
-                  exerciseBodyPart={workoutExercise.exercise.bodyPart}
-                  onBlur={(e) => {
-                    patchExerciseLoad(
-                      workoutExercise.exercise.id,
-                      workoutExercise.load,
-                      e.target.value,
-                    );
-                  }}
-                  onClickIcon={() => openModal(index)}
-                />
-                <ExerciseModal
-                  isOpen={modalStates[index] || false}
-                  onClose={() => closeModal(index)}
-                  onClickDelete={() =>
-                    deleteWorkout(workoutId, workoutExercise.exercise.id, index)
-                  }
-                />
-              </>
-            ))
-        )}
-
+                  return bodyPartComparison === 0
+                    ? a.exercise.name.localeCompare(b.exercise.name)
+                    : bodyPartComparison;
+                })
+                .map((workoutExercise, index) => (
+                  <>
+                    <ExerciseCard
+                      exerciseName={workoutExercise.exercise.name}
+                      exerciseLoad={workoutExercise.load}
+                      exerciseBodyPart={workoutExercise.exercise.bodyPart}
+                      onBlur={(e) => {
+                        patchExerciseLoad(
+                          workoutExercise.exercise.id,
+                          workoutExercise.load,
+                          e.target.value,
+                        );
+                      }}
+                      onClickIcon={() => openModal(index)}
+                    />
+                    <ExerciseModal
+                      isOpen={modalStates[index] || false}
+                      onClose={() => closeModal(index)}
+                      onClickDelete={() =>
+                        deleteWorkout(
+                          workoutId,
+                          workoutExercise.exercise.id,
+                          index,
+                        )
+                      }
+                    />
+                  </>
+                ))
+            )}
+          </>
+        </CardContainer>
         <HeaderContainer backOnClick={() => navigate("/workout")} />
       </>
     </CustomContainer>
