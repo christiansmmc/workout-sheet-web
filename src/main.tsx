@@ -33,9 +33,13 @@ export const theme = extendTheme({
         width: "100%",
       },
       "@media (min-width: 500px)": {
-        "#root": {
-          height: "auto",
+        "html, body": {
           border: "1px solid #5A5A5A",
+        },
+      },
+      "@media (max-height: 550px)": {
+        "html, body": {
+          height: "auto",
         },
       },
     },
