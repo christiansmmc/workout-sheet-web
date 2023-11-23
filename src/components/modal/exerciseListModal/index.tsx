@@ -1,5 +1,4 @@
 import {
-  Button,
   Modal,
   ModalBody,
   ModalCloseButton,
@@ -10,6 +9,7 @@ import {
 } from "@chakra-ui/react";
 import { GetExerciseResponse } from "../../../interfaces/exercise.ts";
 import ExerciseCard from "../../card/listExerciseCard";
+import PrimaryActionButtonNewUi from "../../button/primaryActionButtonNewUi/primaryActionButton.tsx";
 
 interface ExerciseListModalProps {
   isOpen: boolean;
@@ -47,12 +47,12 @@ const ExerciseListModal = ({
         size={"lg"}
       >
         <ModalOverlay />
-        <ModalContent backgroundColor={"#1E1E1E"} color={"white"}>
+        <ModalContent backgroundColor={"#161616"} color={"white"}>
           <ModalHeader textAlign={"center"} color={"white"}>
             Selecione o exercício
           </ModalHeader>
           <ModalCloseButton />
-          <ModalBody pb={6}>
+          <ModalBody>
             {exerciseList.map((exercise, index) => {
               return (
                 <ExerciseCard
@@ -70,16 +70,8 @@ const ExerciseListModal = ({
               );
             })}
           </ModalBody>
-          <ModalFooter>
-            <Button
-              variant={"primaryActionButton"}
-              width={"100px"}
-              mr={3}
-              _hover={{ backgroundColor: "#5A5A5A" }}
-              onClick={onClose}
-            >
-              Cancelar
-            </Button>
+          <ModalFooter borderTop={"1px solid #323232"}>
+            <PrimaryActionButtonNewUi onClick={onClose} text="Cancelar" />
           </ModalFooter>
         </ModalContent>
       </Modal>

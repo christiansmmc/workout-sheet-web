@@ -4,9 +4,10 @@ export const ExerciseCardContainer = styled.div`
   position: relative;
   width: 100%;
   height: 48px;
-  border: 1px solid #5a5a5a;
-  background-color: #1e1e1e;
-  border-radius: 2px;
+  min-height: 48px;
+  border: 1px solid #323232;
+  background-color: #323232;
+  border-radius: 10px;
   display: flex;
   align-items: center;
   margin-bottom: 8px;
@@ -52,7 +53,7 @@ export const ExerciseCardTag = styled.p<{ $tagName: string }>`
   position: absolute;
   right: 40px;
   font-size: 16px;
-  border-radius: 2px;
+  border-radius: 10px;
   width: 80px;
   height: 24px;
   text-align: center;
