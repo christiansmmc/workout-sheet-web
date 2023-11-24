@@ -2,7 +2,7 @@ import styled from "styled-components";
 
 export const BottomContainerStyle = styled.div`
   position: absolute;
-  bottom: 20px;
+  bottom: 10px;
   left: 50%;
-  transform: translate(-50%, -50%);
+  transform: translateX(-50%);
 `;

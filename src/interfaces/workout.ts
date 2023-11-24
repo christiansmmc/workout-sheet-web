@@ -24,3 +24,7 @@ export interface CreateWorkoutPayload {
     exerciseId: string;
   }[];
 }
+
+export interface CreateNewWorkoutExercisePayload {
+  load: number;
+}

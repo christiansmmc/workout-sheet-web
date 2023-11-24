@@ -1,7 +1,7 @@
 import {
-  ListExerciseCardContainer,
-  ListExerciseCardTag,
-  ListExerciseCardText,
+  ExerciseCardContainer,
+  ExerciseCardTag,
+  ExerciseCardText,
 } from "./styles.tsx";
 
 interface ListExerciseCardProps {
@@ -10,19 +10,19 @@ interface ListExerciseCardProps {
   onClick: () => void;
 }
 
-const ListExerciseCard = ({
+const ExerciseCard = ({
   exerciseName,
   exerciseBodyPart,
   onClick,
 }: ListExerciseCardProps) => {
   return (
-    <ListExerciseCardContainer onClick={onClick}>
-      <ListExerciseCardText>{exerciseName}</ListExerciseCardText>
-      <ListExerciseCardTag $tagName={exerciseBodyPart}>
+    <ExerciseCardContainer onClick={onClick}>
+      <ExerciseCardText>{exerciseName}</ExerciseCardText>
+      <ExerciseCardTag $tagName={exerciseBodyPart}>
         {exerciseBodyPart}
-      </ListExerciseCardTag>
-    </ListExerciseCardContainer>
+      </ExerciseCardTag>
+    </ExerciseCardContainer>
   );
 };
 
-export default ListExerciseCard;
+export default ExerciseCard;

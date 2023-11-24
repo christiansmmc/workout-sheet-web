@@ -1,11 +1,12 @@
 import { Input } from "@chakra-ui/react";
 import {
   ExerciseCardContainer,
-  ExercisesCardTag,
+  ExercisesCardTagContainerStyle,
+  ExercisesCardTagTextStyle,
   ExercisesCardText,
   InputContainer,
-  OptionIconContainer,
   TrashIcon,
+  TrashIconContainer,
 } from "./styles.tsx";
 import React from "react";
 import { capitalize } from "../../../utils/stringUtils.ts";
@@ -36,14 +37,17 @@ const ExerciseCard = ({
           defaultValue={exerciseLoad}
           onBlur={onBlur}
           type={"number"}
+          backgroundColor={"#161616"}
         />
       </InputContainer>
-      <ExercisesCardTag $tagName={exerciseBodyPart}>
-        {exerciseBodyPart}
-      </ExercisesCardTag>
-      <OptionIconContainer onClick={onClickIcon}>
+      <ExercisesCardTagContainerStyle $tagName={exerciseBodyPart}>
+        <ExercisesCardTagTextStyle>
+          {exerciseBodyPart}
+        </ExercisesCardTagTextStyle>
+      </ExercisesCardTagContainerStyle>
+      <TrashIconContainer onClick={onClickIcon}>
         <TrashIcon />
-      </OptionIconContainer>
+      </TrashIconContainer>
     </ExerciseCardContainer>
   );
 };

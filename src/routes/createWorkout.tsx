@@ -1,5 +1,3 @@
-import CustomContainer from "../components/containers/customContainer";
-import BottomContainer from "../components/containers/bottomContainer";
 import { Button, Input, useToast } from "@chakra-ui/react";
 import { useState } from "react";
 import ExerciseCard from "../components/card/exerciseCard";
@@ -9,7 +7,10 @@ import { usePostWorkoutMutation } from "../api/workout.ts";
 import { CreateWorkoutPayload } from "../interfaces/workout.ts";
 import { useNavigate } from "react-router-dom";
 import { isAuthenticated } from "../utils/authUtils.ts";
-import BottomCommandsContainer from "../components/containers/bottomCommandsContainer";
+import HeaderContainer from "../components/containers/stopwatchContainer";
+import BottomContainer from "../components/containers/bottomContainer";
+import Container from "../components/containers/pageContainer";
+import CardContainer from "../components/containers/cardContainer";
 
 const CreateWorkout = () => {
   interface Exercise {
@@ -119,74 +120,73 @@ const CreateWorkout = () => {
   };
 
   return (
-    <>
-      <ExerciseListModal
-        isOpen={isModalOpen}
-        onClose={closeModal}
-        onSelectExercise={(
-          exerciseId: string,
-          exerciseName: string,
-          exerciseBodyPart: string,
-        ) => addExercise(exerciseId, exerciseName, exerciseBodyPart)}
-        exerciseList={
-          data
-            ? data.filter(
-                (it) => !exercises.map((value) => value.id).includes(it.id),
-              )
-            : []
-        }
-      />
-
-      <CustomContainer>
-        <>
-          {exercises.map((exercise, index) => {
-            return (
-              <>
-                <ExerciseCard
-                  key={index}
-                  exerciseName={exercise.name}
-                  exerciseLoad={exercise.load}
-                  exerciseBodyPart={exercise.bodyPart}
-                  onBlur={(e) => updateLoad(index, e.target.value)}
-                  onClickIcon={() => removeExercise(index)}
-                />
-              </>
-            );
-          })}
-
-          <Button
-            variant={"primaryActionButton"}
-            width={"250px"}
-            _hover={{ backgroundColor: "#5A5A5A" }}
-            onClick={openModal}
-          >
-            Adicionar exercício
-          </Button>
-          <BottomCommandsContainer onClick={() => navigate("/")} />
-        </>
-      </CustomContainer>
-      <BottomContainer>
-        <>
-          <Input
-            variant={"primaryInput"}
-            type={"text"}
-            placeholder={"Nome do treino"}
-            name={workoutName}
-            value={workoutName}
-            onChange={(e) => setWorkoutName(e.target.value)}
-            width={"250px"}
-          />
-          <Button
-            variant={"primaryActionButton"}
-            width={"250px"}
-            _hover={{ backgroundColor: "#5A5A5A" }}
-            onClick={createWorkout}
-          >
-            Criar
-          </Button>
-        </>
-      </BottomContainer>
-    </>
+    <Container>
+      <>
+        <HeaderContainer backOnClick={() => navigate("/workout")} />
+        <CardContainer bottomHeight={"270px"}>
+          <>
+            {exercises.map((exercise, index) => {
+              return (
+                <>
+                  <ExerciseCard
+                    key={index}
+                    exerciseName={exercise.name}
+                    exerciseLoad={exercise.load}
+                    exerciseBodyPart={exercise.bodyPart}
+                    onBlur={(e) => updateLoad(index, e.target.value)}
+                    onClickIcon={() => removeExercise(index)}
+                  />
+                </>
+              );
+            })}
+          </>
+        </CardContainer>
+        <BottomContainer>
+          <>
+            <Input
+              variant={"primaryInput2"}
+              placeholder={"Nome do treino"}
+              type={"text"}
+              name={workoutName}
+              value={workoutName}
+              onChange={(e) => setWorkoutName(e.target.value)}
+              width={"250px"}
+            />
+            <Button
+              variant={"PrimaryActionButtonNewUi"}
+              width={"250px"}
+              onClick={openModal}
+            >
+              Adicionar exercício
+            </Button>
+            <Button
+              style={{ marginBottom: "15px" }}
+              variant={"PrimaryActionButtonNewUi"}
+              width={"250px"}
+              onClick={createWorkout}
+            >
+              Criar treino
+            </Button>
+          </>
+        </BottomContainer>
+        <ExerciseListModal
+          isOpen={isModalOpen}
+          onClose={closeModal}
+          onSelectExercise={(
+            exerciseId: string,
+            exerciseName: string,
+            exerciseBodyPart: string,
+          ) => addExercise(exerciseId, exerciseName, exerciseBodyPart)}
+          exerciseList={
+            data
+              ? data.filter(
+                  (it) => !exercises.map((value) => value.id).includes(it.id),
+                )
+              : []
+          }
+        />
+      </>
+    </Container>
   );
 };
 

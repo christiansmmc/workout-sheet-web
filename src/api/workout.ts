@@ -2,6 +2,7 @@ import { AxiosError, AxiosResponse } from "axios";
 import { useMutation, useQuery, useQueryClient } from "react-query";
 import { RequestError } from "../interfaces/request.ts";
 import {
+  CreateNewWorkoutExercisePayload,
   CreateWorkoutPayload,
   GetWorkoutExercisesResponse,
   GetWorkoutsResponse,
@@ -228,6 +229,46 @@ export const usePostWorkoutMutation = (
     onSuccess: () => {
       if (successToastCallback) successToastCallback();
       navigate("/workout");
+    },
+    onError: (err) => {
+      if (errorToastCallback) errorToastCallback(err);
+    },
+  });
+
+  return {
+    mutate,
+  };
+};
+
+export const postNewWorkoutExerciseData = (
+  workoutId: string,
+  exerciseId: string,
+  payload: CreateNewWorkoutExercisePayload,
+) => {
+  return api.post(`/workouts/${workoutId}/exercises/${exerciseId}`, payload);
+};
+
+export const usePostNewWorkoutExerciseMutation = (
+  successToastCallback?: () => void,
+  errorToastCallback?: (error: AxiosError<RequestError>) => void,
+) => {
+  const queryClient = useQueryClient();
+
+  const { mutate } = useMutation<
+    AxiosResponse,
+    AxiosError<RequestError>,
+    {
+      workoutId: string;
+      exerciseId: string;
+      data: CreateNewWorkoutExercisePayload;
+    },
+    unknown
+  >({
+    mutationFn: ({ workoutId, exerciseId, data }) =>
+      postNewWorkoutExerciseData(workoutId, exerciseId, data),
+    onSuccess: () => {
+      queryClient.invalidateQueries("GetWorkoutExercises");
+      if (successToastCallback) successToastCallback();
     },
     onError: (err) => {
       if (errorToastCallback) errorToastCallback(err);

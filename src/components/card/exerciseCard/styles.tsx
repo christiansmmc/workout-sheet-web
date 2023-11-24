@@ -1,23 +1,66 @@
 import styled from "styled-components";
-import { BsThreeDots } from "react-icons/bs";
 import { PiTrashLight } from "react-icons/pi";
 
 export const ExerciseCardContainer = styled.div`
   position: relative;
   width: 100%;
-  height: 56px;
-  border: 1px solid #5a5a5a;
-  background-color: #1e1e1e;
-  border-radius: 2px;
-  padding: 4px;
+  height: 64px;
+  min-height: 64px;
+  border: 1px solid #323232;
+  background-color: #323232;
+  border-radius: 10px;
   display: flex;
   align-items: center;
 `;
 
 export const ExercisesCardText = styled.p`
   font-size: 14px;
-  max-width: 35%;
+  max-width: 40%;
   padding-left: 8px;
+`;
+
+export const TrashIconContainer = styled.div`
+  position: absolute;
+  top: 0;
+  right: 8px;
+  height: 64px;
+  width: 40px;
+  cursor: pointer;
+`;
+
+export const TrashIcon = styled(PiTrashLight)`
+  font-size: 24px;
+  position: absolute;
+  left: 0;
+  right: 0;
+  top: 0;
+  bottom: 0;
+  margin: auto;
+`;
+
+export const InputContainer = styled.div`
+  position: absolute;
+  right: 136px;
+`;
+
+export const ExercisesCardTagContainerStyle = styled.div<{ $tagName: string }>`
+  position: absolute;
+  right: 52px;
+  border-radius: 10px;
+  padding: 2px 8px;
+  width: 72px;
+  height: 24px;
+  text-align: center;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background-color: ${(props) =>
+    tagColors[props.$tagName]?.backgroundColor ||
+    tagColors.default.backgroundColor};
+`;
+
+export const ExercisesCardTagTextStyle = styled.p`
+  font-size: 12px;
 `;
 
 interface TagColors {
@@ -49,51 +92,3 @@ const tagColors: TagColors = {
     backgroundColor: "#808080",
   },
 };
-
-export const ExercisesCardTag = styled.p<{ $tagName: string }>`
-  position: absolute;
-  right: 56px;
-  font-size: 12px;
-  border-radius: 2px;
-  padding: 2px 8px;
-  width: 72px;
-  height: 24px;
-  text-align: center;
-  background-color: ${(props) =>
-    tagColors[props.$tagName]?.backgroundColor ||
-    tagColors.default.backgroundColor};
-`;
-
-export const OptionIconContainer = styled.div`
-  position: absolute;
-  top: 0;
-  right: 8px;
-  height: 48px;
-  width: 40px;
-  cursor: pointer;
-`;
-
-export const OptionIcon = styled(BsThreeDots)`
-  position: absolute;
-  left: 0;
-  right: 0;
-  top: 0;
-  bottom: 0;
-  margin: auto;
-  font-size: 26px;
-`;
-
-export const InputContainer = styled.div`
-  position: absolute;
-  right: 142px;
-`;
-
-export const TrashIcon = styled(PiTrashLight)`
-  position: absolute;
-  left: 0;
-  right: 0;
-  top: 0;
-  bottom: 0;
-  margin: auto;
-  font-size: 24px;
-`;

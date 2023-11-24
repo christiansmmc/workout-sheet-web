@@ -23,27 +23,26 @@ const WorkoutModal = ({
     <>
       <Modal isCentered={true} isOpen={isOpen} onClose={onClose} size={"sm"}>
         <ModalOverlay />
-        <ModalContent backgroundColor={"#1E1E1E"} color={"white"}>
+        <ModalContent backgroundColor={"#161616"} color={"white"}>
           <ModalHeader color={"white"}>
             Tem certeza que deseja retirar o exercício deste treino ?
           </ModalHeader>
           <ModalCloseButton />
           <ModalFooter>
             <Button
-              variant={"primaryActionButton"}
+              variant={"PrimaryActionButtonNewUi"}
               width={"100px"}
               mr={20}
-              _hover={{ backgroundColor: "red" }}
               onClick={onClickDelete}
             >
               Deletar
             </Button>
             <Button
-              variant={"primaryActionButton"}
+              variant={"PrimaryActionButtonNewUi"}
               width={"100px"}
               mr={7}
-              _hover={{ backgroundColor: "#5A5A5A" }}
               onClick={onClose}
+              backgroundColor={"#5A5A5A"}
             >
               Cancelar
             </Button>
