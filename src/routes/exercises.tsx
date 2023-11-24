@@ -218,7 +218,6 @@ const WorkoutPage = () => {
             style={{ marginBottom: "15px" }}
             variant={"PrimaryActionButtonNewUi"}
             width={"250px"}
-            _hover={{ backgroundColor: "#5A5A5A" }}
             onClick={openAddExerciseModal}
           >
             Adicionar exercício
